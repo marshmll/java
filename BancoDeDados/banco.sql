@@ -1,0 +1,13 @@
+DROP DATABASE IF EXISTS bancopoo;
+CREATE DATABASE IF NOT EXISTS bancopoo;
+USE bancopoo;
+
+CREATE TABLE IF NOT EXISTS Usuario (
+	id_usuario INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    data_hora TIMESTAMP,
+    PRIMARY KEY(id_usuario)
+);
+
+SELECT * FROM Usuario;
