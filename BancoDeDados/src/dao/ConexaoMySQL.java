@@ -11,7 +11,7 @@ public class ConexaoMySQL {
     private ConexaoMySQL() {
         try {
             conexao = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/bancopoo?useSSL=false",
+                    "jdbc:mysql://127.0.0.1:3306/rede_social?useSSL=false",
                     "root",
                     "PUC@1234"
             );

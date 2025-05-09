@@ -17,12 +17,12 @@ public class UsuarioDAO {
     }
 
     public void criarUsuario(Usuario usuario) {
-        query = "INSERT INTO Usuario (email, senha) VALUES(?, ?)";
+        query = "INSERT INTO Usuario (nome, email) VALUES (?, ?)";
 
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
-            stmt.setString(1, usuario.getEmail());
-            stmt.setString(2, usuario.getSenha());
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,12 +39,10 @@ public class UsuarioDAO {
 
             while (rs.next()) {
                 int id = rs.getInt("id_usuario");
+                String nome = rs.getString("nome");
                 String email = rs.getString("email");
-                String senha = rs.getString("senha");
 
-                Usuario u = new Usuario(email, senha);
-                u.setIdUsuario(id);
-
+                Usuario u = new Usuario(id, email, nome);
                 lista.add(u);
             }
         } catch (SQLException e) {
@@ -52,5 +50,31 @@ public class UsuarioDAO {
         }
 
         return lista;
+    }
+
+    public void atualizarUsuario(Usuario u) {
+        query = "UPDATE Usuario SET nome = ?, email = ? WHERE id_usuario = ?";
+
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            stmt.setString(1, u.getNome());
+            stmt.setString(2, u.getEmail());
+            stmt.setInt(3, u.getIdUsuario());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void excluirUsuario(int idUsuario) {
+        query = "DELETE FROM Usuario WHERE id_usuario = ?";
+
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            stmt.setInt(1, idUsuario);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
